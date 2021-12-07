@@ -34,8 +34,8 @@
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/instructions.html">Instructions</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/instructions.html">Instructions</a></li>
                             <li class="nav-item"><a class="nav-link" href="/calibration.html">Calibration</a></li>
                             <li class="nav-item"><a class="nav-link" href="/trackingtask.html">Gaze Tracking Task</a></li>
                             <li class="nav-item"><a class="nav-link" href="/videotask.html">Video Task</a></li>
@@ -44,18 +44,44 @@
                     
                 </div>
             </nav>
-            <div class="bg-image flex-grow-1" style="
-                background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
-                height:89vh
-            ">
-                <div class="flex flex-row h-full justify-center items-center">
-                    <div class="grid gap-16 grid-cols-1">
-                        <p class="display-1 text-white">
-                            Attention Self-detecting Test
-                        </p>
+            <div id="background" class="w-full" style="height:89vh">
+                <div class="flex flex-row h-full justify-center items-center mx-16">
+                    <div class="grid grid-cols-1 gap-8 max-w-2xl">
+                        <h1 class="display-3">
+                            Instructions
+                        </h1>
+                        <div>
+                            <div class="font-serif text-base">
+                                This website helps you get an idea on how you are attentive during daily screen activities.
+                            </div>
+                            <div class="font-serif text-base">
+                                You can complete different game tasks here, to test your attentiveness level.
+                            </div>
+                            <div class="font-serif text-base">
+                                After finishing all the tasks, we will send you a personal report about your attention.
+                            </div>
+                        </div>
+                        <div>
+                            <div class="font-serif text-base">
+                                Notes:
+                            </div>
+                            <div class="font-serif text-base">
+                                1. Please finish this test on your laptop (Do NOT use phones or pads).
+                            </div>
+                            <div class="font-serif text-base">
+                                2. Please keep a constant distance from your screen during the whole test (about 70cm) .
+                            </div>
+                            <div class="font-serif text-base">
+                                3. All the data collected in the test ONLY for experimental use, will NOT be known by others.
+                            </div>
+                            <div class="font-serif text-base self-center">
+                                4. After you click on “Start”, the website will ask for the permission of web camera. It is
+                                necessary for us to detect your eye movements in order to measure your attention level.
+                            </div>
+                        </div>
                         <div class="flex flex-col flex-wrap content-center">
-                            <form method="get" action="instructions.html">
-                                <button id='calibration_button' class="btn btn-dark" type="submit">Start Now!</button>
+                            <form method="get" action="calibration.html">
+                                <button id='calibration_button' class="btn btn-dark" type="submit">Click to Start</button>
                             </form>
                         </div>
                     </div>

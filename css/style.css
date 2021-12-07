@@ -120,3 +120,47 @@ li {
     bottom:2vw;
     right:2vw;
 }
+
+.circle {
+  background: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: wave 15s alternate; /* infinite alternate */
+}
+
+@keyframes wave {
+    0% {
+    transform: translate(10vw,10vh);
+  }
+    10% {
+    transform: translate(50vw,10vh);
+  }
+    20% {
+    transform: translate(90vw,10vh);
+  }
+    30% {
+    transform: translate(90vw,35vh);
+  }
+    40% {
+    transform: translate(90vw,80vh);
+  }
+    50% {
+    transform: translate(50vw,80vh);
+  }
+    60% {
+    transform: translate(10vw,80vh);
+  }
+    70% {
+    transform: translate(10vw,35vh);
+  }
+    80% {
+    transform: translate(50vw,35vh);
+  }
+    90% {
+    transform: translate(10vw,10vh);
+  }
+    100% {
+    transform: translate(10vw,10vh);
+  }
+}
