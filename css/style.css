@@ -121,15 +121,37 @@ li {
     right:2vw;
 }
 
-.circle {
+#moving_dot1 {
+  display: block;
   background: black;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  animation: wave 15s alternate; /* infinite alternate */
+  animation: wave1 15s alternate; /* infinite alternate */
+  animation-play-state: paused;
 }
 
-@keyframes wave {
+#moving_dot2 {
+  display: none;
+  background: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: wave2 15s alternate; /* infinite alternate */
+  animation-play-state: paused;
+}
+
+#moving_dot3 {
+  display: none;
+  background: blue;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: wave3 15s alternate; /* infinite alternate */
+  animation-play-state: paused;
+}
+
+@keyframes wave1 {
     0% {
     transform: translate(10vw,10vh);
   }
@@ -161,6 +183,78 @@ li {
     transform: translate(10vw,10vh);
   }
     100% {
+    transform: translate(90vw,10vh);
+  }
+}
+
+@keyframes wave2 {
+    0% {
     transform: translate(10vw,10vh);
+  }
+    10% {
+    transform: translate(50vw,35vh);
+  }
+    20% {
+    transform: translate(90vw,10vh);
+  }
+    30% {
+    transform: translate(50vw,10vh);
+  }
+    40% {
+    transform: translate(10vw,35vh);
+  }
+    50% {
+    transform: translate(50vw,80vh);
+  }
+    60% {
+    transform: translate(90vw,35vh);
+  }
+    70% {
+    transform: translate(90vw,80vh);
+  }
+    80% {
+    transform: translate(10vw,80vh);
+  }
+    90% {
+    transform: translate(10vw,10vh);
+  }
+    100% {
+    transform: translate(90vw,10vh);
+  }
+}
+
+@keyframes wave3 {
+    0% {
+    transform: translate(50vw,35vh);
+  }
+    10% {
+    transform: translate(50vw,10vh);
+  }
+    20% {
+    transform: translate(90vw,10vh);
+  }
+    30% {
+    transform: translate(10vw,35vh);
+  }
+    40% {
+    transform: translate(10vw,10vh);
+  }
+    50% {
+    transform: translate(90vw,35vh);
+  }
+    60% {
+    transform: translate(90vw,80vh);
+  }
+    70% {
+    transform: translate(50vw,80vh);
+  }
+    80% {
+    transform: translate(10vw,80vh);
+  }
+    90% {
+    transform: translate(10vw,10vh);
+  }
+    100% {
+    transform: translate(90vw,10vh);
   }
 }

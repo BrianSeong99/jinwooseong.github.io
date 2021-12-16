@@ -38,15 +38,29 @@
                             <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                             <li class="nav-item"><a class="nav-link" href="/instructions.html">Instructions</a></li>
                             <li class="nav-item"><a class="nav-link" href="/calibration.html">Calibration</a></li>
-                            <li class="nav-item active"><a class="nav-link" href="/trackingtask.html">Gaze Tracking Task</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/videotask.html">Video Task</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/trackingtask.html">Gaze Tracking Task</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="/videotask.html">Video Task</a></li>
                         </ul>
                     </div>
                     
                 </div>
             </nav>
-            <div class="bg-image flex-grow-1" style="height:89vh">
-                <div class="circle"></div>
+            <div style="height:89vh">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex flex-column d-grid gap-6">
+                        <iframe src="https://drive.google.com/file/d/1sMEb3ggKXRiywqpTZUvLh3Vrrc0hERuX/preview" width="1080" height="720"
+                            allow="autoplay">
+                        </iframe>
+                        <div class="d-flex justify-content-center d-grid gap-3">
+                            <form method="get" action="instructions.html">
+                                <button id='calibration_button' class="btn btn-dark" type="submit">Previous Video</button>
+                            </form>
+                            <form method="get" action="instructions.html">
+                                <button id='calibration_button' class="btn btn-dark" type="submit">Next Video</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
             <footer class="w-screen">
                 <div class="bg-gray-700 p-3 hidden sm:block">
