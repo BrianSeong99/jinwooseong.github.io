@@ -19,10 +19,7 @@
         <link rel="stylesheet" type="text/css" href="./css/style.css">
     </head>
 
-
     <body>
-
-        
         <div class="d-flex flex-column">
             <!-- Fixed navbar -->
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top ">
@@ -45,19 +42,22 @@
                     
                 </div>
             </nav>
+            
+            <!-- <canvas id="plotting_canvas" width="250" height="250" style="cursor:crosshair;"></canvas> -->
+
             <div class="bg-image flex-grow-1" style="height:89vh">
                 <br>
                 <div class="d-flex justify-content-center d-grid gap-3">
+                    <button id='record_toggle_button' class="btn btn-warning" type="submit">Record/Done</button>
+                    <a id="download_record_button"><button id='upload_video_button' class="btn btn-secondary" type="submit">Download</button></a>
                     <button id='previous_button' class="btn btn-dark" type="submit">Previous Task</button>
                     <button id='start_button' class="btn btn-primary" type="submit">Start Current task</button>
                     <button id='next_button' class="btn btn-dark" type="submit">Next Task</button>
-                </div>
-                <br>
-                <div class="d-flex justify-content-center d-grid gap-3">
                     <form method="get" action="videotask.html">
-                        <button id='next_session' class="btn btn-danger" style="display: none;" type="submit">Next Session</button>
+                        <button id='next_session' class="btn btn-info" style="display: none;" type="submit">Next Session</button>
                     </form>
                 </div>
+                <br>
                 <!-- https://redstapler.co/curved-css-animation-path/ -->
                 <div id="moving_dot1" class="circle"></div>
                 <div id="moving_dot2" class="circle"></div>
@@ -73,10 +73,46 @@
                 </div>
             </footer>
         </div>  
-
+        
+        <script src="./webgazer.js"></script>
         <script>
+            window.onload = async function() {
+                await webgazer.setRegression('ridge')
+                    .showVideoPreview(false)
+                    .showPredictionPoints(false)
+                    .begin()
+                console.log("begin")
+            }
+
+            let record_status = false
+            let webgazer_isready = false
+
+            const recordtoggle = document.getElementById('record_toggle_button')
+            recordtoggle.addEventListener('click', async () => {
+                if (recordtoggle.classList.contains('btn-warning')) {
+                    recordtoggle.classList.remove('btn-warning')
+                    recordtoggle.classList.add('btn-danger')
+                    await webgazer.setGazeListener((data, clock) => {
+                        gazingData2.push({ 'data': data, 'clock': clock })
+                        // console.log(clock);
+                    })
+                    while (webgazer.isReady() == false) {}
+                    console.log("ready")
+                    webgazer_isready = true;
+                    webgazer.record(0);
+                } else {
+                    recordtoggle.classList.remove('btn-danger')
+                    recordtoggle.classList.add('btn-warning')
+                    webgazer.record(1);
+                }
+            })
+
             let task_num = 0;
             /* Toggle Animations */
+
+            gazingData0 = [];
+            gazingData1 = [];
+            gazingData2 = [];
 
             const adjustDisplayDot = (dot1, dot2, dot3) => {
                 if (task_num === 0) {
@@ -93,10 +129,9 @@
                     dot3.style.display = 'block';
                 }
             };
-            const jstoggle = document.getElementById('start_button');   
-            jstoggle.addEventListener('click', () => {
-                console.log("clidked here");
-
+            const starttoggle = document.getElementById('start_button');   
+            starttoggle.addEventListener('click', async () => {
+                console.log("here");
                 const dot1 = document.getElementById('moving_dot1');
                 const dot2 = document.getElementById('moving_dot2');
                 const dot3 = document.getElementById('moving_dot3');
@@ -106,7 +141,7 @@
                     dot2.style.animationPlayState = 'running';
                 } else if (task_num === 2) {
                     dot3.style.animationPlayState = 'running';
-                }              
+                }
             });
             const nexttoggle = document.getElementById('next_button');
             nexttoggle.addEventListener('click', () => {
@@ -130,6 +165,7 @@
                 adjustDisplayDot(dot1, dot2, dot3);
             })
         </script>
+        <!-- <script src="./js/main.js"></script> -->
 
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
