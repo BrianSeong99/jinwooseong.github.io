@@ -44,36 +44,28 @@
             </nav>
             
             <!-- <canvas id="plotting_canvas" width="250" height="250" style="cursor:crosshair;"></canvas> -->
-
-            <div class="bg-image flex-grow-1" style="height:89vh">
-                <br>
-                <div class="d-flex justify-content-center d-grid gap-3">
-                    <button id='record_toggle_button' class="btn btn-warning" type="submit">Record/Done</button>
-                    <a id="download_record_button"><button id='upload_video_button' class="btn btn-secondary" type="submit">Download</button></a>
-                    <button id='previous_button' class="btn btn-dark" type="submit">Previous Task</button>
-                    <button id='start_button' class="btn btn-primary" type="submit">Start Current task</button>
-                    <button id='next_button' class="btn btn-dark" type="submit">Next Task</button>
-                    <form method="get" action="videotask.html">
-                        <button id='next_session' class="btn btn-info" style="display: none;" type="submit">Next Session</button>
-                    </form>
-                </div>
-                <br>
-                <!-- https://redstapler.co/curved-css-animation-path/ -->
-                <div id="moving_dot1" class="circle"></div>
-                <div id="moving_dot2" class="circle"></div>
-                <div id="moving_dot3" class="circle"></div>
-            </div>
-            <footer class="w-screen">
-                <div class="bg-gray-700 p-3 hidden sm:block">
-                    <div class="flex space-x-4 justify-center">
-                        <div class="font-serif text-center text-gray-200">
-                            Designed and Developed by Bowen, Brian, Yuqi
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>  
-        
+        <div class="bg-image flex-grow-1" style="height:89vh">
+            <br>
+            <div class="d-flex justify-content-center d-grid gap-3">
+                <button id='record_toggle_button' class="btn btn-warning" type="submit">Record/Done</button>
+                <a id="download_record_button"><button class="btn btn-secondary" type="submit">Download</button></a>
+                <button id="upload_record_button" class="btn btn-secondary">Upload</button>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center d-grid gap-3">
+                <button id='previous_button' class="btn btn-dark" type="submit">Previous Task</button>
+                <button id='start_button' class="btn btn-primary" type="submit">Start Current task</button>
+                <button id='next_button' class="btn btn-dark" type="submit">Next Task</button>
+                <form method="get" action="videotask.html">
+                    <button id='next_session' class="btn btn-info" style="display: none;" type="submit">Next Session</button>
+                </form>
+            </div>
+            <!-- https://redstapler.co/curved-css-animation-path/ -->
+            <div id="moving_dot1" class="circle"></div>
+            <div id="moving_dot2" class="circle"></div>
+            <div id="moving_dot3" class="circle"></div>
+        </div>
         <script src="./webgazer.js"></script>
         <script>
             window.onload = async function() {
@@ -82,10 +74,13 @@
                     .showPredictionPoints(false)
                     .begin()
                 console.log("begin")
+                webgazer.record(2);
             }
 
             let record_status = false
             let webgazer_isready = false
+            let record_startclock = false;
+            let record_endclock = false;
 
             const recordtoggle = document.getElementById('record_toggle_button')
             recordtoggle.addEventListener('click', async () => {
@@ -93,8 +88,15 @@
                     recordtoggle.classList.remove('btn-warning')
                     recordtoggle.classList.add('btn-danger')
                     await webgazer.setGazeListener((data, clock) => {
-                        gazingData2.push({ 'data': data, 'clock': clock })
-                        // console.log(clock);
+                        webgazer.mediaRecorder.gazingdata.push({ 'data': data, 'clock': clock })
+                        if (record_startclock) {
+                            webgazer.mediaRecorder.StartIndex = webgazer.mediaRecorder.gazingdata.length-1;
+                            record_startclock = false;
+                        }
+                        if (record_endclock) {
+                            webgazer.mediaRecorder.EndIndex = webgazer.mediaRecorder.gazingdata.length-1;
+                            record_endclock = false;
+                        }
                     })
                     while (webgazer.isReady() == false) {}
                     console.log("ready")
@@ -107,23 +109,19 @@
                 }
             })
 
-            let task_num = 0;
+            webgazer.mediaRecorder.TaskNumber = 11;
             /* Toggle Animations */
 
-            gazingData0 = [];
-            gazingData1 = [];
-            gazingData2 = [];
-
             const adjustDisplayDot = (dot1, dot2, dot3) => {
-                if (task_num === 0) {
+                if (webgazer.mediaRecorder.TaskNumber === 11) {
                     dot1.style.display = 'block';
                     dot2.style.display = 'none';
                     dot3.style.display = 'none';
-                } else if (task_num === 1) {
+                } else if (webgazer.mediaRecorder.TaskNumber === 12) {
                     dot1.style.display = 'none';
                     dot2.style.display = 'block';
                     dot3.style.display = 'none';
-                } else if (task_num === 2) {
+                } else if (webgazer.mediaRecorder.TaskNumber === 13) {
                     dot1.style.display = 'none';
                     dot2.style.display = 'none';
                     dot3.style.display = 'block';
@@ -131,26 +129,31 @@
             };
             const starttoggle = document.getElementById('start_button');   
             starttoggle.addEventListener('click', async () => {
-                console.log("here");
                 const dot1 = document.getElementById('moving_dot1');
                 const dot2 = document.getElementById('moving_dot2');
                 const dot3 = document.getElementById('moving_dot3');
-                if (task_num === 0) {
+                console.log("dot running toggled")
+                console.log("tasknumber: ", webgazer.mediaRecorder.TaskNumber)
+                if (webgazer.mediaRecorder.TaskNumber === 11) {
                     dot1.style.animationPlayState = 'running';
-                } else if (task_num === 1) {
+                    record_startclock = true;
+                } else if (webgazer.mediaRecorder.TaskNumber === 12) {
                     dot2.style.animationPlayState = 'running';
-                } else if (task_num === 2) {
+                    record_startclock = true;
+                } else if (webgazer.mediaRecorder.TaskNumber === 13) {
                     dot3.style.animationPlayState = 'running';
+                    record_startclock = true;
                 }
+                const Timeout = setTimeout(() => {record_endclock = true;}, 15000);
             });
             const nexttoggle = document.getElementById('next_button');
             nexttoggle.addEventListener('click', () => {
-                console.log(task_num);
+                console.log(webgazer.mediaRecorder.TaskNumber);
                 const dot1 = document.getElementById('moving_dot1');
                 const dot2 = document.getElementById('moving_dot2');
                 const dot3 = document.getElementById('moving_dot3');
-                task_num = task_num<2 ? task_num+1 : 2;
-                if (task_num === 2) {
+                webgazer.mediaRecorder.TaskNumber = webgazer.mediaRecorder.TaskNumber<13 ? webgazer.mediaRecorder.TaskNumber+1 : 13;
+                if (webgazer.mediaRecorder.TaskNumber === 13) {
                     const nextsession = document.getElementById('next_session');
                     nextsession.style.display = 'block';
                 }
@@ -161,7 +164,7 @@
                 const dot1 = document.getElementById('moving_dot1');
                 const dot2 = document.getElementById('moving_dot2');
                 const dot3 = document.getElementById('moving_dot3');
-                task_num = task_num>0 ? task_num-1 : 0;
+                webgazer.mediaRecorder.TaskNumber = webgazer.mediaRecorder.TaskNumber>11 ? webgazer.mediaRecorder.TaskNumber-1 : 11;
                 adjustDisplayDot(dot1, dot2, dot3);
             })
         </script>
