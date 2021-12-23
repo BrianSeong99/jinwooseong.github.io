@@ -43,31 +43,159 @@
                 </div>
             </nav>
             <div style="height:89vh">
+                <br>
+                <div class="d-flex justify-content-center d-grid gap-3">
+                    <button id='record_toggle_button' class="btn btn-warning" type="submit">Record/Done</button>
+                    <a id="download_record_button"><button class="btn btn-secondary" type="submit">Download</button></a>
+                    <button id="upload_record_button" class="btn btn-secondary">Upload</button>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center d-grid gap-3">
+                    <button id='strong_footage_1' class="btn btn-success" type="submit" onclick="UpdateTask(1)">Footage 1</button>
+                    <button id='strong_footage_2' class="btn btn-success" type="submit" onclick="UpdateTask(2)">Footage 2</button>
+                    <button id='strong_footage_3' class="btn btn-success" type="submit" onclick="UpdateTask(3)">Footage 3</button>
+                    <button id='strong_footage_4' class="btn btn-success" type="submit" onclick="UpdateTask(4)">Footage 4</button>
+                    <button id='strong_footage_5' class="btn btn-success" type="submit" style="display: none" onclick="UpdateTask(5)">Footage 5</button>
+                    <button id='strong_footage_6' class="btn btn-success" type="submit" style="display: none" onclick="UpdateTask(6)">Footage 6</button>
+                    <button id='strong_footage_7' class="btn btn-success" type="submit" style="display: none" onclick="UpdateTask(7)">Footage 7</button>
+                    <button id='strong_footage_8' class="btn btn-success" type="submit" style="display: none" onclick="UpdateTask(8)">Footage 8</button>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#answerModal">Answer Question</button>
+                    <button id='next_session' class="btn btn-dark" style="display: none" onclick="UpdateSession()">Next Session</button>
+                    <!-- Modal -->
+                    <div id="answerModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                    
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label id="question_label" for="answer_input" class="col-form-label">In the film clip, the man said that he can achieve the same thing as David. He said that his machine can be more
+                                            obedient to humans, but also has a certain trait. What is this trait?</label>
+                                            <input type="text" class="form-control" id="answer_input">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id='start_calibration' class="btn btn-primary" data-dismiss="modal"
+                                        onclick="UpdateAnswer()">Done</button>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+
+                    <form method="get" action="videotask.html">
+                        <button id='next_session' class="btn btn-info" style="display: none;" type="submit">Next Session</button>
+                    </form>
+                </div>
+                <br>
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="d-flex flex-column d-grid gap-6">
-                        <iframe src="https://drive.google.com/file/d/1sMEb3ggKXRiywqpTZUvLh3Vrrc0hERuX/preview" width="1080" height="720"
-                            allow="autoplay">
-                        </iframe>
-                        <div class="d-flex justify-content-center d-grid gap-3">
-                            <form method="get" action="instructions.html">
-                                <button id='calibration_button' class="btn btn-dark" type="submit">Previous Video</button>
-                            </form>
-                            <form method="get" action="instructions.html">
-                                <button id='calibration_button' class="btn btn-dark" type="submit">Next Video</button>
-                            </form>
-                        </div>
+                        <video id="video_element" controls>
+                            <source id="video_source" type="video/mp4">
+                        </video>
                     </div>
                 </div>
             </div>
-            <footer class="w-screen">
-                <div class="bg-gray-700 p-3 hidden sm:block">
-                    <div class="flex space-x-4 justify-center">
-                        <div class="font-serif text-center text-gray-200">
-                            Designed and Developed by Bowen, Brian, Yuqi
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <script src="./webgazer.js"></script>
+            <script>
+                window.onload = async function () {
+                    await webgazer.setRegression('ridge')
+                        .showVideoPreview(false)
+                        .showPredictionPoints(false)
+                        .begin()
+                    console.log("begin")
+                    webgazer.record(2);
+                }
+
+                let record_status = false
+                let webgazer_isready = false
+                let record_startclock = false;
+                let record_endclock = false;
+
+                // const answermodel = new bootstrap.Modal(document.getElementById('answer_model'))
+
+                const UpdateAnswer = () => {
+                    const inputAnswer = document.getElementById('answer_input');
+                    webgazer.mediaRecorder.Answer = inputAnswer.value;
+                    const nextSession = document.getElementById('next_session');
+                    nextSession.style.display = 'block';
+                }
+
+                const UpdateTask = (index) => {
+                    const video_source = document.getElementById('video_source');
+                    const video_url = 'http://47.94.201.245/video/' + (index).toString() + '.mp4'
+                    console.log("video link", video_url);
+                    video_source.setAttribute('src', video_url);
+                    video_source.setAttribute('type', 'video/mp4');
+                    const video_element = document.getElementById('video_element')
+                    video_element.load();
+                    
+                    webgazer.mediaRecorder.TaskNumber = 200 + (index < 5 ? 10 : 20) + index
+                    console.log(webgazer.mediaRecorder.TaskNumber);
+                    const question_label = document.getElementById('question_label');
+                    question_label.innerHTML = index < 5 
+                        ? 'In the film clip, the man said that he can achieve the same thing as David. He said that his machine can be more obedient to humans, but also has a certain trait.What is this trait ?'
+                        : 'In the film review clip, a woman with brown hair and green eyes and another woman with green eyes glanced at each other under a tree. What color of hair does the latter have?'
+                }
+
+                const UpdateSession = () => {
+                    const strong_footage_1 = document.getElementById('strong_footage_1');
+                    const strong_footage_2 = document.getElementById('strong_footage_2');
+                    const strong_footage_3 = document.getElementById('strong_footage_3');
+                    const strong_footage_4 = document.getElementById('strong_footage_4');
+                    const strong_footage_5 = document.getElementById('strong_footage_5');
+                    const strong_footage_6 = document.getElementById('strong_footage_6');
+                    const strong_footage_7 = document.getElementById('strong_footage_7');
+                    const strong_footage_8 = document.getElementById('strong_footage_8');
+                    strong_footage_1.style.display = 'none';
+                    strong_footage_2.style.display = 'none';
+                    strong_footage_3.style.display = 'none';
+                    strong_footage_4.style.display = 'none';
+                    strong_footage_5.style.display = 'block';
+                    strong_footage_6.style.display = 'block';
+                    strong_footage_7.style.display = 'block';
+                    strong_footage_8.style.display = 'block';
+                }
+
+                const videoelement = document.getElementById('video_element')
+                videoelement.addEventListener('play', () => {
+                    console.log("play");
+                    record_startclock = true;
+                });
+                videoelement.addEventListener('pause', () => { //change back to end
+                    console.log("end");
+                    record_endclock = true;
+                })
+
+                const recordtoggle = document.getElementById('record_toggle_button')
+                recordtoggle.addEventListener('click', async () => {
+                    if (recordtoggle.classList.contains('btn-warning')) {
+                        recordtoggle.classList.remove('btn-warning')
+                        recordtoggle.classList.add('btn-danger')
+                        await webgazer.setGazeListener((data, clock) => {
+                            webgazer.mediaRecorder.gazingdata.push({ 'data': data, 'clock': clock })
+                            if (record_startclock) {
+                                webgazer.mediaRecorder.StartIndex = webgazer.mediaRecorder.gazingdata.length - 1;
+                                record_startclock = false;
+                            }
+                            if (record_endclock) {
+                                webgazer.mediaRecorder.EndIndex = webgazer.mediaRecorder.gazingdata.length - 1;
+                                record_endclock = false;
+                            }
+                        })
+                        while (webgazer.isReady() == false) { }
+                        console.log("ready")
+                        webgazer_isready = true;
+                        webgazer.record(0);
+                    } else {
+                        recordtoggle.classList.remove('btn-danger')
+                        recordtoggle.classList.add('btn-warning')
+                        webgazer.record(1);
+                    }
+                })
+            </script>
         </div>  
 
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>

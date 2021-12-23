@@ -42,10 +42,7 @@
                     
                 </div>
             </nav>
-            
-            <!-- <canvas id="plotting_canvas" width="250" height="250" style="cursor:crosshair;"></canvas> -->
-        </div>  
-        <div class="bg-image flex-grow-1" style="height:89vh">
+        <div style="height:89vh">
             <br>
             <div class="d-flex justify-content-center d-grid gap-3">
                 <button id='record_toggle_button' class="btn btn-warning" type="submit">Record/Done</button>
@@ -68,7 +65,7 @@
         </div>
         <script src="./webgazer.js"></script>
         <script>
-            window.onload = async function() {
+            window.onload = async function () {
                 await webgazer.setRegression('ridge')
                     .showVideoPreview(false)
                     .showPredictionPoints(false)
@@ -90,15 +87,15 @@
                     await webgazer.setGazeListener((data, clock) => {
                         webgazer.mediaRecorder.gazingdata.push({ 'data': data, 'clock': clock })
                         if (record_startclock) {
-                            webgazer.mediaRecorder.StartIndex = webgazer.mediaRecorder.gazingdata.length-1;
+                            webgazer.mediaRecorder.StartIndex = webgazer.mediaRecorder.gazingdata.length - 1;
                             record_startclock = false;
                         }
                         if (record_endclock) {
-                            webgazer.mediaRecorder.EndIndex = webgazer.mediaRecorder.gazingdata.length-1;
+                            webgazer.mediaRecorder.EndIndex = webgazer.mediaRecorder.gazingdata.length - 1;
                             record_endclock = false;
                         }
                     })
-                    while (webgazer.isReady() == false) {}
+                    while (webgazer.isReady() == false) { }
                     console.log("ready")
                     webgazer_isready = true;
                     webgazer.record(0);
@@ -144,7 +141,7 @@
                     dot3.style.animationPlayState = 'running';
                     record_startclock = true;
                 }
-                const Timeout = setTimeout(() => {record_endclock = true;}, 15000);
+                const Timeout = setTimeout(() => { record_endclock = true; }, 15000);
             });
             const nexttoggle = document.getElementById('next_button');
             nexttoggle.addEventListener('click', () => {
@@ -152,7 +149,7 @@
                 const dot1 = document.getElementById('moving_dot1');
                 const dot2 = document.getElementById('moving_dot2');
                 const dot3 = document.getElementById('moving_dot3');
-                webgazer.mediaRecorder.TaskNumber = webgazer.mediaRecorder.TaskNumber<13 ? webgazer.mediaRecorder.TaskNumber+1 : 13;
+                webgazer.mediaRecorder.TaskNumber = webgazer.mediaRecorder.TaskNumber < 13 ? webgazer.mediaRecorder.TaskNumber + 1 : 13;
                 if (webgazer.mediaRecorder.TaskNumber === 13) {
                     const nextsession = document.getElementById('next_session');
                     nextsession.style.display = 'block';
@@ -164,12 +161,10 @@
                 const dot1 = document.getElementById('moving_dot1');
                 const dot2 = document.getElementById('moving_dot2');
                 const dot3 = document.getElementById('moving_dot3');
-                webgazer.mediaRecorder.TaskNumber = webgazer.mediaRecorder.TaskNumber>11 ? webgazer.mediaRecorder.TaskNumber-1 : 11;
+                webgazer.mediaRecorder.TaskNumber = webgazer.mediaRecorder.TaskNumber > 11 ? webgazer.mediaRecorder.TaskNumber - 1 : 11;
                 adjustDisplayDot(dot1, dot2, dot3);
             })
         </script>
-        <!-- <script src="./js/main.js"></script> -->
-
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
