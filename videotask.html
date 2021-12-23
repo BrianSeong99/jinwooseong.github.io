@@ -114,6 +114,17 @@
                 let record_startclock = false;
                 let record_endclock = false;
 
+                const videolink = {
+                    "1": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226579/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%901_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_ndyhky.mp4",
+                    "2": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226563/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%902_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_zhnnyi.mp4",
+                    "3": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226565/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%903_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_zoxa6l.mp4",
+                    "4": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226583/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%904_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_rr4dmp.mp4",
+                    "5": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226580/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%905_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_t5mcf0.mp4",
+                    "6": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226581/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%906_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_c1u2g7.mp4",
+                    "7": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226588/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%907_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_milvcp.mp4",
+                    "8": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226584/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%908_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_u8yk0v.mp4"
+                }
+
                 // const answermodel = new bootstrap.Modal(document.getElementById('answer_model'))
 
                 const UpdateAnswer = () => {
@@ -125,7 +136,7 @@
 
                 const UpdateTask = (index) => {
                     const video_source = document.getElementById('video_source');
-                    const video_url = 'http://47.94.201.245/video/' + (index).toString() + '.mp4'
+                    const video_url = videolink[index.toString()]
                     console.log("video link", video_url);
                     video_source.setAttribute('src', video_url);
                     video_source.setAttribute('type', 'video/mp4');
@@ -161,10 +172,16 @@
 
                 const videoelement = document.getElementById('video_element')
                 videoelement.addEventListener('play', () => {
-                    console.log("play");
-                    record_startclock = true;
+                    if (videoelement.readyState === 4) {
+                        console.log("play");
+                        record_startclock = true;
+                    }
+                    else {
+                        console.log("not ready to play");
+                        videoelement.pause();
+                    }
                 });
-                videoelement.addEventListener('pause', () => { //change back to end
+                videoelement.addEventListener('end', () => { //change back to end
                     console.log("end");
                     record_endclock = true;
                 })
