@@ -104,6 +104,7 @@
                     await webgazer.setRegression('ridge')
                         .showVideoPreview(false)
                         .showPredictionPoints(false)
+                        .saveDataAcrossSessions(true)
                         .begin()
                     console.log("begin")
                     webgazer.record(2);
