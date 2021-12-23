@@ -80,9 +80,44 @@
                             </div>
                         </div>
                         <div class="flex flex-col flex-wrap content-center">
+                            <button class="btn btn-info" data-toggle="modal" data-target="#infoModal">Answer Question</button>
+                            <br>
                             <form method="get" action="calibration.html">
                                 <button id='calibration_button' class="btn btn-dark" type="submit">Click to Start</button>
                             </form>
+                        </div>
+                        <div id="infoModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                        
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="answer_input" class="col-form-label">Name</label>
+                                                <input type="text" class="form-control" id="name_input">
+                                                <label for="age_input" class="col-form-label">Age</label>
+                                                <input type="text" class="form-control" id="age_input">
+                                                <label for="gender_input" class="col-form-label">Gender</label>
+                                                <input type="text" class="form-control" id="gender_input">
+                                                <label for="major_input" class="col-form-label">Major</label>
+                                                <input type="text" class="form-control" id="major_input">
+                                                <label for="leftorrighthand_input" class="col-form-label">Which Handed?</label>
+                                                <input type="text" class="form-control" id="leftorrighthand_input">
+                                                <label for="sleeplastnight_input" class="col-form-label">Sleeping hours last night</label>
+                                                <input type="text" class="form-control" id="sleeplastnight_input">
+                                                <label for="AveWeeklySleepinghours_input" class="col-form-label">Ave Weekly Sleeping hours</label>
+                                                <input type="text" class="form-control" id="AveWeeklySleepinghours_input">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id='start_calibration' class="btn btn-primary" data-dismiss="modal"
+                                            onclick="UpdateInfo()">Done</button>
+                                    </div>
+                                </div>
+                        
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,6 +133,42 @@
             </footer>
         </div>  
 
+        <script>
+            const UpdateInfo = () => {
+                const name = document.getElementById('name_input').value;
+                const age = document.getElementById('age_input').value;
+                const gender = document.getElementById('gender_input').value;
+                const major = document.getElementById('major_input').value;
+                const leftorrighthand = document.getElementById('leftorrighthand_input').value;
+                const sleeplastnight = document.getElementById('sleeplastnight_input').value;
+                const AveWeeklySleepinghours = document.getElementById('AveWeeklySleepinghours_input').value;
+                var data = JSON.stringify({
+                    "name": name,
+                    "age": age,
+                    "gender": gender,
+                    "major": major,
+                    "leftorrighthand": leftorrighthand,
+                    "sleeping hours last night": sleeplastnight,
+                    "Ave Weekly Sleeping hours": AveWeeklySleepinghours
+                });
+
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+
+                xhr.addEventListener("readystatechange", function () {
+                    if (this.readyState === 4) {
+                        console.log(this.responseText);
+                    }
+                });
+
+                console.log(data);
+
+                // xhr.open("POST", "");
+                // xhr.setRequestHeader("Content-Type", "application/json");
+
+                // xhr.send(data);
+            }
+        </script>
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
