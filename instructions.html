@@ -163,10 +163,9 @@
 
                 console.log(data);
 
-                // xhr.open("POST", "");
-                // xhr.setRequestHeader("Content-Type", "application/json");
-
-                // xhr.send(data);
+                xhr.open("POST", "http://47.94.201.245:8080/qaupload");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(data);
             }
         </script>
         <script src="./node_modules/jquery/dist/jquery.min.js"></script>
