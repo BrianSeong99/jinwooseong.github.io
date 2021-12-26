@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col flex-wrap content-center">
-                            <button class="btn btn-info" data-toggle="modal" data-target="#infoModal">Answer Question</button>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#infoModal">Fill in your Info</button>
                             <br>
                             <form method="get" action="calibration.html">
                                 <button id='calibration_button' class="btn btn-dark" type="submit">Click to Start</button>
@@ -95,19 +95,19 @@
                                         <form>
                                             <div class="mb-3">
                                                 <label for="answer_input" class="col-form-label">Name</label>
-                                                <input type="text" class="form-control" id="name_input">
+                                                <input type="text" class="form-control" id="name_input" autocomplete="off">
                                                 <label for="age_input" class="col-form-label">Age</label>
-                                                <input type="text" class="form-control" id="age_input">
+                                                <input type="text" class="form-control" id="age_input" autocomplete="off">
                                                 <label for="gender_input" class="col-form-label">Gender</label>
-                                                <input type="text" class="form-control" id="gender_input">
+                                                <input type="text" class="form-control" id="gender_input" autocomplete="off">
                                                 <label for="major_input" class="col-form-label">Major</label>
-                                                <input type="text" class="form-control" id="major_input">
+                                                <input type="text" class="form-control" id="major_input" autocomplete="off">
                                                 <label for="leftorrighthand_input" class="col-form-label">Which Handed?</label>
-                                                <input type="text" class="form-control" id="leftorrighthand_input">
+                                                <input type="text" class="form-control" id="leftorrighthand_input" autocomplete="off">
                                                 <label for="sleeplastnight_input" class="col-form-label">Sleeping hours last night</label>
-                                                <input type="text" class="form-control" id="sleeplastnight_input">
+                                                <input type="text" class="form-control" id="sleeplastnight_input" autocomplete="off">
                                                 <label for="AveWeeklySleepinghours_input" class="col-form-label">Ave Weekly Sleeping hours</label>
-                                                <input type="text" class="form-control" id="AveWeeklySleepinghours_input">
+                                                <input type="text" class="form-control" id="AveWeeklySleepinghours_input" autocomplete="off">
                                             </div>
                                         </form>
                                     </div>
@@ -151,6 +151,7 @@
                     "sleeping hours last night": sleeplastnight,
                     "Ave Weekly Sleeping hours": AveWeeklySleepinghours
                 });
+                window.localStorage.setItem("name", name);
 
                 var xhr = new XMLHttpRequest();
                 xhr.withCredentials = true;

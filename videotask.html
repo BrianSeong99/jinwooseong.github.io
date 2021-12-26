@@ -46,7 +46,8 @@
                 <br>
                 <div class="d-flex justify-content-center d-grid gap-3">
                     <button id='record_toggle_button' class="btn btn-warning" type="submit">Record/Done</button>
-                    <a id="download_record_button"><button class="btn btn-secondary" type="submit">Download</button></a>
+                    <a id="download_record_button"><button class="btn btn-secondary" type="submit" style="display: none;">Download Json</button></a>
+                    <a id="download_record_button2"><button class="btn btn-secondary" type="submit" style="display: none;">Download Video</button></a>
                     <button id="upload_record_button" class="btn btn-secondary">Upload</button>
                 </div>
                 <br>
@@ -70,9 +71,9 @@
                                 <div class="modal-body">
                                     <form>
                                         <div class="mb-3">
-                                            <label id="question_label" for="answer_input" class="col-form-label">In the film clip, the man said that he can achieve the same thing as David. He said that his machine can be more
-                                            obedient to humans, but also has a certain trait. What is this trait?</label>
-                                            <input type="text" class="form-control" id="answer_input">
+                                            <label id="question_label" for="answer_input" class="col-form-label">In the film review clip, the man mentioned about a machine "Fred" that can think and feel like human. Who is the creator
+                                            of this kind of machine?</label>
+                                            <input type="text" class="form-control" id="answer_input" autocomplete="off">
                                         </div>
                                     </form>
                                 </div>
@@ -120,9 +121,9 @@
                     "2": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226563/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%902_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_zhnnyi.mp4",
                     "3": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226565/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%903_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_zoxa6l.mp4",
                     "4": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226583/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%904_%E5%BC%BA%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_rr4dmp.mp4",
-                    "5": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226580/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%905_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_t5mcf0.mp4",
+                    "5": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640521877/bby/NEW%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%905_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_q6v685.mp4",
                     "6": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226581/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%906_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%BA%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_c1u2g7.mp4",
-                    "7": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226588/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%907_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_milvcp.mp4",
+                    "7": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640521805/bby/NEW%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%907_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%B7%A6%E4%BE%A7_ejvzle.mp4",
                     "8": "https://res.cloudinary.com/dqpmuvsz7/video/upload/v1640226584/bby/%E5%AE%9E%E9%AA%8C%E7%B4%A0%E6%9D%908_%E5%BC%B1%E6%83%85%E8%8A%82_%E5%BC%B1%E5%BC%B9%E7%AA%97_%E5%8F%B3%E4%BE%A7_u8yk0v.mp4"
                 }
 
@@ -148,7 +149,7 @@
                     console.log(webgazer.mediaRecorder.TaskNumber);
                     const question_label = document.getElementById('question_label');
                     question_label.innerHTML = index < 5 
-                        ? 'In the film clip, the man said that he can achieve the same thing as David. He said that his machine can be more obedient to humans, but also has a certain trait.What is this trait ?'
+                        ? 'In the film review clip, the man mentioned about a machine "Fred" that can think and feel like human. Who is the creator of this kind of machine?'
                         : 'In the film review clip, a woman with brown hair and green eyes and another woman with green eyes glanced at each other under a tree. What color of hair does the latter have?'
                 }
 
